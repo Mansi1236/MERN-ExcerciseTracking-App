@@ -3,34 +3,35 @@
 
 const express = require('express')
 
+const {createExcercise ,
+    getAllExcercises,
+    getSingleExcercise,
+    UpdateExcercise,
+    DeleteExcercise
+
+} = require('../controller/ExcerciseController.js')
+
+
 // creates an instance of the router 
 const router = express.Router()
 
 // Dummy routes for testing
-router.get('/', (req, res) => {
-res.json({message: "GET all excercises"})
-})
+router.get('/', getAllExcercises)
 
 // GET a single excercise through id
-router.get('/:id', (req, res) => {
-    res.json({message: "GET a single excercise"})
-})
+router.get('/:id', getSingleExcercise)
 
 // POST an excercise
-router.post('/', (req, res) => {
-    
-    res.json({message: "POST an excercise"})
-})
+
+//Here we're using the ExcerciseModel to create a new document -> excercise
+
+router.post('/', createExcercise)
 
 // UPDATE an excercise with id
-router.put('/:id' , (req, res) => {
-    res.json({message: "UPDATE an excercise"})
-})
+router.patch('/:id' , UpdateExcercise)
 
 // DELETE an excercise
-router.delete('/:id', (req, res) => {
-    res.json({message: "DELETE an excercise"})
-})
+router.delete('/:id', DeleteExcercise)
 
 
 

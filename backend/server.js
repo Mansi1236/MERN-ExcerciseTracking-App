@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 
+const mongoose = require('mongoose')
+
 // ExcerciseRoutes gets all the routes defined(get, post, put, delete etc.)in the excercise-route.js file
 const ExcerciseRoutes = require('./routes/excercise-route.js')
 
@@ -24,11 +26,18 @@ app.use('/', ExcerciseRoutes)
 
 
 
-
-
-
-// binding a port to the express app to  listen all requests to a specific port 
-app.listen(process.env.PORT, () => {
-    console.log(`listening on `, process.env.PORT)
+// connect to db
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log(`DB connected and listening on `, process.env.PORT)
+    })
+    
 })
+.catch((error) => {
+    console.log(error)
+})
+
+
+
 
